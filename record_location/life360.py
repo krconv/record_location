@@ -7,8 +7,8 @@ from record_location import config
 
 @attr.s
 class API:
-    base_url = attr.ib(default=config.Life360API.base_url)
-    auth = attr.ib(default=config.Life360API.auth)
+    base_url = attr.ib(default=config.Life360.base_url)
+    auth = attr.ib(default=config.Life360.auth)
 
     def get_circles(self):
         response = self._request("circles/")
