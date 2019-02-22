@@ -7,6 +7,6 @@ RUN pip install -r requirements.txt
 
 COPY record_location ./record_location/
 COPY setup.py ./
-RUN pip install -e .
+RUN pip install .
 
 CMD [ "record-location" ]

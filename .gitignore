@@ -123,3 +123,4 @@ Pipfile.lock
 
 # Secrets
 jenkins_search/secrets.json
+record_location/config.py

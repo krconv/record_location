@@ -1,2 +1,4 @@
+from record_location import life360
+
 def main():
-    print("Hello world")
+    location_api = life360.API()
