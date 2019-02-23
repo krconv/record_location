@@ -20,3 +20,6 @@ class Recorder:
         {"name": "battery_level", "attribute": "battery_level"},
         {"name": "is_charging", "attribute": "is_charging"},
     ]
+
+class Schedule:
+    interval = 5  # minutes
