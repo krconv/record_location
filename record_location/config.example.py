@@ -21,5 +21,10 @@ class Recorder:
         {"name": "is_charging", "attribute": "is_charging"},
     ]
 
+
 class Schedule:
     interval = 5  # minutes
+
+
+class Logging:
+    level = "INFO"

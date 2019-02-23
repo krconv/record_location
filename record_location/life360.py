@@ -1,6 +1,7 @@
 import datetime
 
 import attr
+from loguru import logger
 import requests
 
 from record_location import config
@@ -12,6 +13,7 @@ class API:
     auth = attr.ib(default=config.Life360.auth)
 
     def get_circles(self):
+        logger.debug("Requesting all circles from Life360")
         response = self._request("circles/")
         circles = []
         for circle_data in response["circles"]:
@@ -20,6 +22,7 @@ class API:
         return circles
 
     def get_members(self, circle):
+        logger.debug(f"Requesting all members for circle '{circle.name}' from Life360")
         response = self._request(f"circles/{circle.id}/members")
         members = []
         for member_data in response["members"]:
@@ -28,6 +31,9 @@ class API:
         return members
 
     def get_location(self, circle, member):
+        logger.debug(
+            f"Requesting the location for member '{member.first_name}' from Life360"
+        )
         response = self._request(f"circles/{circle.id}/members/{member.id}/")
         location = _Location.from_dict(response["location"])
         return location
@@ -35,16 +41,19 @@ class API:
     def _request(self, endpoint):
         headers = {"Authorization": self.auth, "Accept": "application/json"}
         url = self.base_url + endpoint
-        return requests.get(url, headers=headers).json()
+        response = requests.get(url, headers=headers)
+        logger.debug(f"Got response with code '{response.status_code}' from Life360")
+        return response.json()
 
 
 @attr.s
 class _Circle:
     id = attr.ib(type=str)
+    name = attr.ib(type=str)
 
     @classmethod
     def from_dict(cls, data):
-        return cls(id=data["id"])
+        return cls(id=data["id"], name=data["name"])
 
 
 @attr.s
