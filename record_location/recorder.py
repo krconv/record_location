@@ -2,6 +2,7 @@ import attr
 
 from record_location import config, influx
 
+
 @attr.s
 class Recorder:
     location_api = attr.ib()
@@ -35,9 +36,8 @@ class Recorder:
             measurement=field["name"],
             tags={"person": member.first_name.lower()},
             fields={"value": getattr(location, field["attribute"])},
-            timestamp=location.timestamp
+            timestamp=location.timestamp,
         )
 
     def _write_points(self, points):
         self.database_api.write_points(points)
-

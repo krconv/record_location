@@ -5,6 +5,7 @@ import requests
 
 from record_location import config
 
+
 @attr.s
 class API:
     base_url = attr.ib(default=config.Life360.base_url)
@@ -17,7 +18,6 @@ class API:
             circle = _Circle.from_dict(circle_data)
             circles.append(circle)
         return circles
-
 
     def get_members(self, circle):
         response = self._request(f"circles/{circle.id}/members")
@@ -32,14 +32,11 @@ class API:
         location = _Location.from_dict(response["location"])
         return location
 
-
     def _request(self, endpoint):
-        headers = {
-            "Authorization": self.auth,
-            "Accept": "application/json"
-        }
+        headers = {"Authorization": self.auth, "Accept": "application/json"}
         url = self.base_url + endpoint
         return requests.get(url, headers=headers).json()
+
 
 @attr.s
 class _Circle:
@@ -49,6 +46,7 @@ class _Circle:
     def from_dict(cls, data):
         return cls(id=data["id"])
 
+
 @attr.s
 class _Member:
     id = attr.ib(type=str)
@@ -57,6 +55,7 @@ class _Member:
     @classmethod
     def from_dict(cls, data):
         return cls(id=data["id"], first_name=data["firstName"])
+
 
 @attr.s
 class _Location:
@@ -74,13 +73,11 @@ class _Location:
     @classmethod
     def from_dict(cls, data):
         return cls(
-           timestamp=datetime.datetime.fromtimestamp(int(data["timestamp"])),
-           latitude=float(data["latitude"]),
-           longitude=float(data["longitude"]),
-           accuracy=int(data["accuracy"]),
-           place=data["name"],
-           battery_level=int(data["battery"])/100,
-           is_charging=int(data["charge"])==1,
+            timestamp=datetime.datetime.fromtimestamp(int(data["timestamp"])),
+            latitude=float(data["latitude"]),
+            longitude=float(data["longitude"]),
+            accuracy=int(data["accuracy"]),
+            place=data["name"],
+            battery_level=int(data["battery"]) / 100,
+            is_charging=int(data["charge"]) == 1,
         )
-
-
