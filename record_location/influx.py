@@ -2,6 +2,7 @@ import datetime
 
 import attr
 import influxdb
+from loguru import logger
 
 from record_location import config
 
@@ -42,10 +43,14 @@ class API:
         self.write_points([point])
 
     def write_points(self, points):
+        logger.debug(f"Writing {len(points)} point(s) to InfluxDB")
         self._write({"points": [point.serialize() for point in points]})
 
     def _write(self, data):
-        self._client.write(data, params=self._params_for_write())
+        result = self._client.write(data, params=self._params_for_write())
+        logger.debug(
+            f"Wrote to InfluxDB {'successfully' if result else 'unsuccessfully'}"
+        )
 
     def _params_for_write(self):
         return {"db": self.database}
