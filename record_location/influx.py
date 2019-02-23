@@ -1,4 +1,3 @@
-
 import datetime
 
 import attr
@@ -43,13 +42,13 @@ class API:
         self.write_points([point])
 
     def write_points(self, points):
-        self._write({ "points": [ point.serialize() for point in points ] })
+        self._write({"points": [point.serialize() for point in points]})
 
     def _write(self, data):
         self._client.write(data, params=self._params_for_write())
 
     def _params_for_write(self):
-        return { "db" : self.database }
+        return {"db": self.database}
 
 
 @attr.s

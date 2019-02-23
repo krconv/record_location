@@ -8,14 +8,6 @@ setup(
     author="Kodey Converse",
     author_email="kodey@krconv.com",
     packages=find_packages(exclude=["tests"]),
-    entry_points={
-        "console_scripts": [
-            "record-location=record_location.__main__:main",
-        ]
-    },
-    install_requires=[
-        "attrs",
-        "influxdb",
-        "requests",
-    ]
+    entry_points={"console_scripts": ["record-location=record_location.__main__:main"]},
+    install_requires=["attrs", "influxdb", "requests"],
 )
