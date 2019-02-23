@@ -1,3 +1,4 @@
 attrs==18.*
 influxdb==5.*
 requests==2.*
+schedule==0.*
