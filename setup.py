@@ -3,7 +3,7 @@ from os import path
 
 setup(
     name="record_location",
-    version="0.0.1",
+    version="0.1.0",
     description="A tool for stashing information from Life360 into Influx.",
     author="Kodey Converse",
     author_email="kodey@krconv.com",
