@@ -87,6 +87,6 @@ class _Location:
             longitude=float(data["longitude"]),
             accuracy=int(data["accuracy"]),
             place=data["name"],
-            battery_level=int(data["battery"]) / 100,
+            battery_level=float(data["battery"]) / 100,
             is_charging=int(data["charge"]) == 1,
         )
